@@ -1,4 +1,4 @@
-    {
+{
     def appspider 
     deleteDir()
     stage('Clone repository') {
