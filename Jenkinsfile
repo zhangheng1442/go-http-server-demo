@@ -1,4 +1,4 @@
-node("slave_hd2-test_132.138") {
+    {
     def appspider 
     deleteDir()
     stage('Clone repository') {
