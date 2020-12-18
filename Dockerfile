@@ -1,5 +1,19 @@
-FROM hub.ark.jcloud.com/skywing/node:9.1.0-jd-logrotate 
-RUN mkdir /export/servers/jdcloud-app-spider
-COPY data.js package-lock.json sty.txt /export/servers/jdcloud-app-spider/
-COPY node_modules /export/servers/jdcloud-app-spider/node_modules/
-RUN echo "0 6 * * * cd /export/servers/jdcloud-app-spider/ && date >> jdcloud-app-spider.log && /export/servers/node/bin/node data.js &>> jdcloud-app-spider.log && echo '--------------------' >> jdcloud-app-spider.log" >> /var/spool/cron/root
+FROM golang:1.14
+
+# Set the Current Working Directory inside the container
+WORKDIR $GOPATH/src/github.com/zhangheng1442/go-http-server-demo
+
+# Copy everything from the current directory to the PWD (Present Working Directory) inside the container
+COPY . .
+
+# Download all the dependencies
+RUN go get -d -v ./...
+
+# Install the package
+RUN go install -v ./...
+
+# This container exposes port 8080 to the outside world
+EXPOSE 3000
+
+# Run the executable
+CMD ["go-http-server-demo"]
