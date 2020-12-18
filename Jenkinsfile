@@ -1,6 +1,6 @@
+def demoapp 
 pipeline {
     agent any
-    def demoapp 
     deleteDir()
     stages {
         stage('Build') {
