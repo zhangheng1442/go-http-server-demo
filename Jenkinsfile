@@ -1,20 +1,18 @@
 pipeline {
     agent any
-
+    def demoapp 
+    deleteDir()
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
+                demoapp = docker.build("hebut09/devops-demo")
             }
         }
-        stage('Test') {
+        stage('Push') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                echo 'Push to docker hub'
+                demoapp.push("${env.BUILD_NUMBER}")
             }
         }
     }
